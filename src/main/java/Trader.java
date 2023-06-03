@@ -35,23 +35,43 @@ public class Trader<T> {
         this.money = money;
     }
 
+    /**
+     * Another constructor for the Trader class that assigns the Trader money, an empty
+     * wishlist and an empty inventory. NOTE: OVERLOADED CONSTRUCTOR.
+     *
+     * @param money Represents the Trader's money
+     */
     /* TODO: Add a new constructor that takes a single argument
      *       representing the Trader's money. Give the Trader
      *       empty ArrayLists for their inventory and wishlist.
      */
+    public Trader(int money) {
+        this.money = money;
+        this.wishlist = new ArrayList<T>();
+        this.inventory = new ArrayList<T>();
+    }
 
 
-
-
-
+    /**
+     * Add an item of type T to the wishlist of the Trader.
+     *
+     * @param item An Object of type T to be added to wishlist.
+     */
     /* TODO: Implement the method addToWishlist that takes an
      *       object of type T and adds it to this Trader's wishlist.
      */
+    public void addToWishlist(T item) {
+        this.wishlist.add(item);
+    }
 
 
-
-
-
+    /**
+     * Gives the selling price of an Object of type T if it is Tradable.
+     * or a missing price if not.
+     *
+     * @param item Any Object of type T for which the selling price is to be determined.
+     * @return An int representing the  price (if item is Tradable) or MISSING_PRICE if not.
+     */
     /* TODO: Implement the method getSellingPrice that takes an
      *       object of type T and returns the object's price
      *       (via getPrice()) if it's Tradable. If not,
@@ -59,7 +79,12 @@ public class Trader<T> {
      *
      *       We will call this in exchangeMoney().
      */
-
+    public int getSellingPrice(T item) {
+        if (item instanceof Tradable) {
+            return ((Tradable) item).getPrice();
+        }
+        return Tradable.MISSING_PRICE;
+    }
 
 
 
@@ -121,7 +146,7 @@ public class Trader<T> {
     @Override
     public String toString() {
         StringBuilder details = new StringBuilder("-- Inventory --\n");
-
+        // Note the structure for the .append().append()!!
         for (T item : this.inventory) {
             details.append(item).append("\n");
         }
